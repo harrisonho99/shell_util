@@ -1,7 +1,5 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory `/Users/harrisonho/Documents/c_lang/syscall'
+make: Entering directory `/Users/harrisonho/Documents/c_lang/shell_util'
+make: Leaving directory `/Users/harrisonho/Documents/c_lang/shell_util'
  
 make: *** No targets specified and no makefile found.  Stop.
 
-make: Leaving directory `/Users/harrisonho/Documents/c_lang/syscall'
- 

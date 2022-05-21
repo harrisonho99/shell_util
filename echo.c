@@ -43,21 +43,22 @@ int main(int argc, char const *argv[])
     for (int i = 1; i < argc; i++)
     {
         int str_len = strlen(argv[i]);
+        int new_pool_index = pool_index + str_len + 1;
         if (i != last_index)
         {
 
             // 1 byte (sep)
-            pool_index += (str_len + 1);
         }
     }
 
-
-
+    
 
     free(pool);
     return 0;
 }
 
-void *grow()
+char *growCharPool(char *pool, size_t old_size, size_t min_size)
 {
+    char *new_pool = (char *)realloc((void *)pool, (old_size * 2) + min_size);
+    return new_pool;
 }
