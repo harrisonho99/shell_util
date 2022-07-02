@@ -1,5 +1,5 @@
+make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/harrisonho/Documents/c_lang/shell_util'
+clang -o echo echo.c	
 make: Leaving directory `/Users/harrisonho/Documents/c_lang/shell_util'
  
-make: *** No targets specified and no makefile found.  Stop.
-

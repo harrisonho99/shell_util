@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
+#include <unistd.h>
+
+#include "./utils/slice.h"
 // The MIT License (MIT)
 
 // Copyright (c) 2022 Harrison Ho
@@ -25,40 +29,21 @@
 
 // UNIX  echo
 #define POOl_MAX_SIZE 1073741824 // 1GB
-int main(int argc, char const *argv[])
+// prototype
+char *growCharPool(char *pool, size_t old_size);
+
+int main()
 {
+    int argc = 3;
+    char const *argv[] = {"echo", "hello", "world"};
 
-    // seperator
-    char *sep = '-';
+    char *src = "hoang";
+    slice_t *slice = make_slice(strlen(src) + 1, strlen(src) + 1);
+    memcpy(slice->pool, src, strlen(src));
+    slice->pool[strlen(src)] = '\0';
+    printf("%s\n", (char *)slice->pool);
 
-    // last index
-    int last_index = argc - 2;
-
-    // string pool
-    int pool_size = 1024;
-    int max_pool_index = pool_size - 1;
-    char *pool = (char *)malloc(pool_size);
-    int pool_index = 0;
-
-    for (int i = 1; i < argc; i++)
-    {
-        int str_len = strlen(argv[i]);
-        int new_pool_index = pool_index + str_len + 1;
-        if (i != last_index)
-        {
-
-            // 1 byte (sep)
-        }
-    }
-
-    
-
-    free(pool);
+    // clean up
+    free(slice->pool);
     return 0;
-}
-
-char *growCharPool(char *pool, size_t old_size, size_t min_size)
-{
-    char *new_pool = (char *)realloc((void *)pool, (old_size * 2) + min_size);
-    return new_pool;
 }
