@@ -6,4 +6,7 @@ slice.o: ./utils/slice.c
 	$(CC) $(CFLAGS) -c ./utils/slice.c -o ./utils/slice.o
 
 echo: ./echo.o slice.o
-	$(CC) $(CFLAGS) ./echo.o ./utils/slice.o -o echo; ./echo
+	$(CC) $(CFLAGS) ./echo.o ./utils/slice.o -o ./bin/echo;
+
+dupfd: ./dupfd.o
+	$(CC) $(CFLAGS) ./dupfd.o ./utils/slice.o -o ./bin/dupfd; 

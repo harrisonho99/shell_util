@@ -24,7 +24,7 @@
 
 #define dupfd(fd) dup(fd)
 
-int main(int argc, char const *argv[])
+int main()
 {
     dupfd(1);
     write(3, "hello\n", 6);
