@@ -4,8 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "../includes/slice.h"
-#include "../includes/mem.h"
+#include "slice.h"
 
 /**
  * @brief grow slice by dupble the size of it
@@ -38,7 +37,7 @@ slice_t *slice_grow(slice_t *sl, size_t n)
  */
 slice_t *make_slice(size_t len, size_t cap)
 {
-    slice_t *sl = (slice_t *)calloc(sizeof(slice_t));
+    slice_t *sl = (slice_t *)calloc(1, sizeof(slice_t));
     if (sl == NULL)
     {
         printf("Error: slice malloc failed\n");
@@ -46,7 +45,7 @@ slice_t *make_slice(size_t len, size_t cap)
     }
     sl->len = len;
     sl->cap = cap;
-    sl->pool = (char *)calloc(cap, sizeof(byte_t));
+    sl->pool = (byte_t *)calloc(cap, sizeof(byte_t));
     if (sl->pool == NULL)
     {
         printf("Error: slice pool malloc failed\n");

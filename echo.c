@@ -5,6 +5,7 @@
 #include <unistd.h>
 
 #include "./utils/slice.h"
+
 // The MIT License (MIT)
 
 // Copyright (c) 2022 Harrison Ho
@@ -28,22 +29,43 @@
 //  DEALINGS IN THE SOFTWARE.
 
 // UNIX  echo
-#define POOl_MAX_SIZE 1073741824 // 1GB
-// prototype
-char *growCharPool(char *pool, size_t old_size);
 
-int main()
+#define DEFAULT_POOL_SIZE 30 // 1KB
+
+int main(int argc, char const *argv[])
 {
-    int argc = 3;
-    char const *argv[] = {"echo", "hello", "world"};
 
-    char *src = "hoang";
-    slice_t *slice = make_slice(strlen(src) + 1, strlen(src) + 1);
-    memcpy(slice->pool, src, strlen(src));
-    slice->pool[strlen(src)] = '\0';
-    printf("%s\n", (char *)slice->pool);
+    slice_t *slice = make_slice(0, DEFAULT_POOL_SIZE);
+    int used_index = 0;
+
+    for (int i = 1; i < argc; i++)
+    {
+        size_t arg_len = (size_t)(strlen(argv[i]) + 1);
+        // last element of slice
+        // append null terminator
+        if (i == argc - 1)
+        {
+            slice_grow(slice, arg_len);
+            strcpy(slice->pool + used_index, argv[i]);
+        }
+
+        if (arg_len > slice->cap)
+        {
+            // grow before append
+            slice_grow(slice, arg_len);
+        }
+
+        // copy argv[i] to slice
+        strncpy(slice->pool + used_index, argv[i], arg_len);
+        // replace the last space with a space
+        slice->pool[used_index - 1] = ' ';
+        used_index += arg_len;
+    }
+    // format output slice
+    printf("%s\n", slice->pool);
 
     // clean up
     free(slice->pool);
+
     return 0;
 }
