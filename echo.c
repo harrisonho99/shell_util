@@ -30,7 +30,7 @@
 
 // UNIX  echo
 
-#define DEFAULT_POOL_SIZE 30 // 1KB
+#define DEFAULT_POOL_SIZE 1024 // 1KB
 
 int main(int argc, char const *argv[])
 {
@@ -46,7 +46,8 @@ int main(int argc, char const *argv[])
         if (i == argc - 1)
         {
             slice_grow(slice, arg_len);
-            strcpy(slice->pool + used_index, argv[i]);
+            // copy included null terminator
+            memcpy((void *)(slice->pool + used_index), (void *)argv[i], arg_len + 1);
         }
 
         if (arg_len > slice->cap)
@@ -56,7 +57,7 @@ int main(int argc, char const *argv[])
         }
 
         // copy argv[i] to slice
-        strncpy(slice->pool + used_index, argv[i], arg_len);
+        memcpy((void *)(slice->pool + used_index), (void *)argv[i], arg_len);
         // replace the last space with a space
         slice->pool[used_index - 1] = ' ';
         used_index += arg_len;

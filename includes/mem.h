@@ -1,2 +1,2 @@
 #include <stdint.h>
-typedef char byte_t;
+typedef uint8_t byte_t;
