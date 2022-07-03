@@ -2,7 +2,9 @@
     "makefile.extensionOutputFolder": "./.vscode",
     "files.associations": {
         "slice.h": "c",
-        "mem.h": "c"
+        "mem.h": "c",
+        "stdlib.h": "c",
+        "unistd.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
